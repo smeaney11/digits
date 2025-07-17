@@ -1,7 +1,6 @@
 import { getServerSession } from 'next-auth';
-import { Col, Container, Row, Table } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
-import StuffItem from '@/components/StuffItem';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
 
@@ -27,22 +26,20 @@ const ListPage = async () => {
       <Container id="list" fluid className="py-3">
         <Row>
           <Col>
-            <h1>Stuff</h1>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Quantity</th>
-                  <th>Condition</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
+            <h1 className="text-center">List Contacts</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            {stuff.length ? (
+              <ul>
                 {stuff.map((item) => (
-                  <StuffItem key={item.id} {...item} />
+                  <li key={item.id}>{item.name}</li>
                 ))}
-              </tbody>
-            </Table>
+              </ul>
+            ) : (
+              <p>No contacts found.</p>
+            )}
           </Col>
         </Row>
       </Container>
